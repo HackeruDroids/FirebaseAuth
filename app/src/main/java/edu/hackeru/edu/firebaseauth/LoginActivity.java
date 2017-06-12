@@ -1,11 +1,10 @@
-package more.hackeru.edu.firebaseauth;
+package edu.hackeru.edu.firebaseauth;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.beardedhen.androidbootstrap.TypefaceProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,8 +26,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        //load the fonts:
-        TypefaceProvider.registerDefaultIconSets();
     }
 
     private String getEmail() {
@@ -64,5 +61,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnRegister)
     public void onBtnRegisterClicked() {
+        //client side validation
+        if (!isEmailValid() | !isPasswordValid()) return;
+        String email = getEmail();
+        String password = getPassword();
     }
 }

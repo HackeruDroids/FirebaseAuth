@@ -1,4 +1,4 @@
-package more.hackeru.edu.firebaseauth;
+package edu.hackeru.edu.firebaseauth;
 
 import org.junit.Test;
 
