@@ -1,39 +1,68 @@
 package more.hackeru.edu.firebaseauth;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.EditText;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class LoginActivity extends AppCompatActivity {
-
+    @BindView(R.id.etEmail)
+    EditText etEmail;
+    @BindView(R.id.etPassword)
+    EditText etPassword;
+    @BindView(R.id.btnLogin)
+    BootstrapButton btnLogin;
+    @BindView(R.id.btnRegister)
+    BootstrapButton btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        //load the font into memory:
+        ButterKnife.bind(this);
+        //load the fonts:
         TypefaceProvider.registerDefaultIconSets();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
+    private String getEmail() {
+        return etEmail.getText().toString();
+    }
+
+    private String getPassword() {
+        return etPassword.getText().toString();
+    }
+
+    private boolean isEmailValid() {
+        String email = getEmail();
+        boolean valid = email.length() > 6 && email.contains("@");//...
+        //boolean valid = Patterns.EMAIL_ADDRESS.matcher(email).matches();
+
+        if (!valid)
+            etEmail.setError("Invalid email address.");
+
+        return valid;
+    }
+
+    private boolean isPasswordValid() {
+        boolean valid = getPassword().length() > 5;
+
+        if (!valid) etPassword.setError("Must contain at least 6 Characters");
+
+        return valid;
+    }
+
+    @OnClick(R.id.btnLogin)
+    public void onBtnLoginClicked() {
+    }
+
+    @OnClick(R.id.btnRegister)
+    public void onBtnRegisterClicked() {
+    }
 }
